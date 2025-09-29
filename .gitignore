@@ -1,0 +1,10 @@
+# Visual Studio cache and build files
+.vs/
+bin/
+obj/
+*.user
+*.suo
+
+# Other common ignores
+*.log
+*.tmp
