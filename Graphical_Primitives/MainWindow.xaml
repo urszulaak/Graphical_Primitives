@@ -5,28 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Graphical_Primitives"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="550" Width="800"
         Background="#FFD1DC">
     <Grid>
+        <TextBlock x:Name="MousePositionText" Margin="120,0,0,0" FontWeight="Bold"/>
         <Label FontWeight="Bold" Content="Figura" HorizontalAlignment="Left" Margin="16,20,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="Linia" HorizontalAlignment="Left" Margin="20,45,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="Okrąg" HorizontalAlignment="Left" Margin="20,65,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="Prostokąt" HorizontalAlignment="Left" Margin="20,85,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="Trójąt" HorizontalAlignment="Left" Margin="20,105,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="Line" GroupName="Figures" Checked="Figure_Checked" Content="Linia" HorizontalAlignment="Left" Margin="20,45,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="Circle" GroupName="Figures" Checked="Figure_Checked" Content="Okrąg" HorizontalAlignment="Left" Margin="20,65,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="Square" GroupName="Figures" Checked="Figure_Checked" Content="Prostokąt" HorizontalAlignment="Left" Margin="20,85,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="Triangle" GroupName="Figures" Checked="Figure_Checked" Content="Trójąt" HorizontalAlignment="Left" Margin="20,105,0,0" VerticalAlignment="Top"/>
         <Label FontWeight="Bold" Content="Kolor" HorizontalAlignment="Left" Margin="16,120,0,0" VerticalAlignment="Top"/>
         <ComboBox HorizontalAlignment="Left" Margin="20,140,0,0" VerticalAlignment="Top" Width="80" Height="18">
-            <ComboBoxItem>Biały</ComboBoxItem>
+            <ComboBoxItem>Brak</ComboBoxItem>
             <ComboBoxItem>Czerwony</ComboBoxItem>
             <ComboBoxItem>Zielony</ComboBoxItem>
             <ComboBoxItem>Niebieski</ComboBoxItem>
         </ComboBox>
-        <Label FontWeight="Bold" Content="Punkt X" HorizontalAlignment="Left" Margin="16,160,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="20,180,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
-        <Label FontWeight="Bold" Content="Punkt Y" HorizontalAlignment="Left" Margin="16,200,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="20,220,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
-        <Label FontWeight="Bold" Content="Promień R" HorizontalAlignment="Left" Margin="16,240,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="20,260,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
-        <Canvas Margin="120,20,20,20" Background="#FFFFFF">
+        <Button x:Name="Generate" Content="Generuj" Click="Figure_Keyboard" Visibility="Collapsed" HorizontalAlignment="Left" Margin="20,170,0,0" Width="80" VerticalAlignment="Top"/>
+        <StackPanel Margin="20,190,0,0" Orientation="Vertical">
+            <StackPanel x:Name="X1Position" Orientation="Vertical" Margin="0,0,0,0" Visibility="Collapsed">
+                <Label FontWeight="Bold" Content="Punkt X₁" HorizontalAlignment="Left" Margin="-6,0,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="x1Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
+            </StackPanel>
+            <StackPanel x:Name="Y1Position" Orientation="Vertical" Visibility="Collapsed">
+                <Label FontWeight="Bold" Content="Punkt Y₁" HorizontalAlignment="Left" Margin="-6,0,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="y1Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
+            </StackPanel>
+            <StackPanel x:Name="X2Position" Orientation="Vertical" Visibility="Collapsed">
+                <Label FontWeight="Bold" Content="Punkt X₂" HorizontalAlignment="Left" Margin="-6,0,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="x2Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
+            </StackPanel>
+            <StackPanel x:Name="Y2Position" Orientation="Vertical" Visibility="Collapsed">
+                <Label FontWeight="Bold" Content="Punkt Y₂" HorizontalAlignment="Left" Margin="-6,0,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="y2Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
+            </StackPanel>
+            <StackPanel x:Name="X3Position" Orientation="Vertical" Visibility="Collapsed">
+                <Label FontWeight="Bold" Content="Punkt X₃" HorizontalAlignment="Left" Margin="-6,0,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="x3Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
+            </StackPanel>
+            <StackPanel x:Name="Y3Position" Orientation="Vertical" Visibility="Collapsed">
+                <Label FontWeight="Bold" Content="Punkt Y₃" HorizontalAlignment="Left" Margin="-6,0,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="y3Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel x:Name="RLength" Orientation="Vertical" Visibility="Collapsed" Margin="20,268,0,0">
+            <Label FontWeight="Bold" Content="Promień R" HorizontalAlignment="Left" Margin="-6,0,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="rValue" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
+        </StackPanel>
+        <Canvas x:Name="FigureCanva" Margin="120,20,20,20" Background="#FFFFFF" MouseMove="CanvaMouseMove">
 
         </Canvas>
     </Grid>
