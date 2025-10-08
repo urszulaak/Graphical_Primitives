@@ -21,31 +21,31 @@
             <ComboBoxItem>Zielony</ComboBoxItem>
             <ComboBoxItem>Niebieski</ComboBoxItem>
         </ComboBox>
-        <Button x:Name="Generate" Content="Generuj" Click="Figure_Keyboard" Visibility="Collapsed" HorizontalAlignment="Left" Margin="20,170,0,0" Width="80" VerticalAlignment="Top"/>
+        <Button x:Name="Generate" Content="Generuj" Click="Figure_Keyboard" Visibility="Collapsed" HorizontalAlignment="Left" Margin="20,170,0,0" Width="80" VerticalAlignment="Top" IsEnabled="False"/>
         <StackPanel Margin="20,190,0,0" Orientation="Vertical">
             <StackPanel x:Name="X1Position" Orientation="Vertical" Margin="0,0,0,0" Visibility="Collapsed">
                 <Label FontWeight="Bold" Content="Punkt X₁" HorizontalAlignment="Left" Margin="-6,0,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="x1Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80" />
+                <TextBox x:Name="x1Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80" TextChanged="RequiredValue"/>
             </StackPanel>
             <StackPanel x:Name="Y1Position" Orientation="Vertical" Visibility="Collapsed">
                 <Label FontWeight="Bold" Content="Punkt Y₁" HorizontalAlignment="Left" Margin="-6,0,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="y1Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
+                <TextBox x:Name="y1Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80" TextChanged="RequiredValue"/>
             </StackPanel>
             <StackPanel x:Name="X2Position" Orientation="Vertical" Visibility="Collapsed">
                 <Label FontWeight="Bold" Content="Punkt X₂" HorizontalAlignment="Left" Margin="-6,0,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="x2Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
+                <TextBox x:Name="x2Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80" TextChanged="RequiredValue"/>
             </StackPanel>
             <StackPanel x:Name="Y2Position" Orientation="Vertical" Visibility="Collapsed">
                 <Label FontWeight="Bold" Content="Punkt Y₂" HorizontalAlignment="Left" Margin="-6,0,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="y2Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
+                <TextBox x:Name="y2Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80" TextChanged="RequiredValue"/>
             </StackPanel>
             <StackPanel x:Name="X3Position" Orientation="Vertical" Visibility="Collapsed">
                 <Label FontWeight="Bold" Content="Punkt X₃" HorizontalAlignment="Left" Margin="-6,0,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="x3Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
+                <TextBox x:Name="x3Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80" TextChanged="RequiredValue"/>
             </StackPanel>
             <StackPanel x:Name="Y3Position" Orientation="Vertical" Visibility="Collapsed">
                 <Label FontWeight="Bold" Content="Punkt Y₃" HorizontalAlignment="Left" Margin="-6,0,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="y3Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
+                <TextBox x:Name="y3Value" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80" TextChanged="RequiredValue"/>
             </StackPanel>
         </StackPanel>
         <StackPanel x:Name="RLength" Orientation="Vertical" Visibility="Collapsed" Margin="20,268,0,0">

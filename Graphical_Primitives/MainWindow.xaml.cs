@@ -63,27 +63,58 @@ namespace Graphical_Primitives
                 Y1Position.Visibility = Visibility.Visible;
                 Generate.Visibility = Visibility.Visible;
             }
-            
-            if (Square.IsChecked == true || Line.IsChecked == true)
+            if (Square.IsChecked == true || Line.IsChecked == true || Triangle.IsChecked == true)
             {
                 X2Position.Visibility = Visibility.Visible;
                 Y2Position.Visibility = Visibility.Visible;
-            }
-            else if (Triangle.IsChecked == true)
-            {
-                X2Position.Visibility = Visibility.Visible;
-                Y2Position.Visibility = Visibility.Visible;
-                X3Position.Visibility = Visibility.Visible;
-                Y3Position.Visibility = Visibility.Visible;
+                
+                if (Triangle.IsChecked == true)
+                {
+                    X3Position.Visibility = Visibility.Visible;
+                    Y3Position.Visibility = Visibility.Visible;
+                }
             }
             else if (Circle.IsChecked == true)
             {
                 RLength.Visibility = Visibility.Visible;
             }
         }
+        private void RequiredValue(object sender, TextChangedEventArgs e)
+        {
+            bool allFilled = new[] { x1Value, y1Value }.All(tb =>
+                !string.IsNullOrWhiteSpace(tb.Text) &&
+                int.TryParse(tb.Text, out _)
+            );
+            var allFilledAdditional = false;
+
+            if (Square.IsChecked == true || Line.IsChecked == true || Triangle.IsChecked == true)
+            {
+                allFilledAdditional = new[] { x2Value, y2Value }.All(tb =>
+                !string.IsNullOrWhiteSpace(tb.Text) &&
+                int.TryParse(tb.Text, out _)
+                );
+
+                if (Triangle.IsChecked == true)
+                {
+                    allFilledAdditional = new[] { x3Value, y3Value }.All(tb =>
+                    !string.IsNullOrWhiteSpace(tb.Text) &&
+                    int.TryParse(tb.Text, out _)
+                    );
+                }
+            }
+            else if (Circle.IsChecked == true)
+            {
+                allFilledAdditional = new[] { rValue }.All(tb =>
+                !string.IsNullOrWhiteSpace(tb.Text) &&
+                int.TryParse(tb.Text, out _)
+                );
+            }
+
+            Generate.IsEnabled = allFilled && allFilledAdditional;
+        }
         private void Figure_Keyboard(object sender, RoutedEventArgs e)
         {
-            if (Line.IsChecked == true) AddFigure("Line");
+            if (Line.IsChecked == true ) AddFigure("Line");
             else if (Square.IsChecked == true) AddFigure("Square");
             else if (Triangle.IsChecked == true) AddFigure("Triangle");
             else if (Circle.IsChecked == true) AddFigure("Circle");
