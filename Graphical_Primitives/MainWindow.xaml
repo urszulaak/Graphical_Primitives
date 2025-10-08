@@ -52,7 +52,7 @@
             <Label FontWeight="Bold" Content="Promień R" HorizontalAlignment="Left" Margin="-6,0,0,0" VerticalAlignment="Top"/>
             <TextBox x:Name="rValue" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
         </StackPanel>
-        <Canvas x:Name="FigureCanva" Margin="120,20,20,20" Background="#FFFFFF" MouseMove="CanvaMouseMove">
+        <Canvas x:Name="FigureCanva" Margin="120,20,20,20" Background="#FFFFFF" MouseMove="CanvaMouseMove" MouseDown="CanvaMouseDown">
 
         </Canvas>
     </Grid>

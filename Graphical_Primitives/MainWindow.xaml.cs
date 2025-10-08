@@ -17,6 +17,7 @@ namespace Graphical_Primitives
     public partial class MainWindow : Window
     {
         private bool firstSelection = false;
+        private List<Point> points = new List<Point>();
         private List<Shape> figures = new List<Shape>();
         public MainWindow()
         {
@@ -128,6 +129,91 @@ namespace Graphical_Primitives
                 figures.Add(circle);
             }
         }
-
+        private void CanvaMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (firstSelection)
+            {
+                if (points.Count == 0)
+                {
+                    points.Add(e.GetPosition(FigureCanva));
+                }
+                else if (points.Count == 1)
+                {
+                    points.Add(e.GetPosition(FigureCanva));
+                    if (Line.IsChecked == true)
+                    {
+                        Line line = new Line
+                        {
+                            X1 = Convert.ToInt32(points[0].X),
+                            Y1 = Convert.ToInt32(points[0].Y),
+                            X2 = Convert.ToInt32(points[1].X),
+                            Y2 = Convert.ToInt32(points[1].Y),
+                            Stroke = Brushes.Black,
+                            StrokeThickness = 2,
+                        };
+                        FigureCanva.Children.Add(line);
+                        figures.Add(line);
+                    }
+                    else if (Square.IsChecked == true)
+                    {
+                        var SquareWidth = Math.Abs(Convert.ToInt32(points[1].X) - Convert.ToInt32(points[0].X));
+                        var SquareHeight = Math.Abs(Convert.ToInt32(points[1].Y) - Convert.ToInt32(points[0].Y));
+                        var SquareTop = Math.Min(Convert.ToInt32(points[1].X), Convert.ToInt32(points[0].X));
+                        var SquareLeft = Math.Min(Convert.ToInt32(points[1].Y), Convert.ToInt32(points[0].Y));
+                        Rectangle square = new Rectangle
+                        {
+                            Width = SquareWidth,
+                            Height = SquareHeight,
+                            Stroke = Brushes.Black,
+                            StrokeThickness = 2,
+                        };
+                        Canvas.SetLeft(square, SquareTop);
+                        Canvas.SetTop(square, SquareLeft);
+                        FigureCanva.Children.Add(square);
+                        figures.Add(square);
+                    }
+                    else if (Circle.IsChecked == true)
+                    {
+                        var helperPoint = new Point(Convert.ToInt32(points[0].X), Convert.ToInt32(points[1].Y));
+                        var a = Math.Abs(Convert.ToInt32(points[0].Y) - helperPoint.Y);
+                        var b = Math.Abs(Convert.ToInt32(points[1].X) - helperPoint.X);
+                        var radius = Math.Sqrt(a * a + b * b);
+                        Ellipse circle = new Ellipse
+                        {
+                            Width = Convert.ToInt32(radius) * 2,
+                            Height = Convert.ToInt32(radius) * 2,
+                            Stroke = Brushes.Black,
+                            StrokeThickness = 2,
+                        };
+                        Canvas.SetLeft(circle, Convert.ToInt32(points[0].X) - Convert.ToInt32(radius));
+                        Canvas.SetTop(circle, Convert.ToInt32(points[0].Y) - Convert.ToInt32(radius));
+                        FigureCanva.Children.Add(circle);
+                        figures.Add(circle);
+                    }
+                    if (Triangle.IsChecked == false)
+                    {
+                        points.Clear();
+                    }
+                }
+                else
+                {
+                    points.Add(e.GetPosition(FigureCanva));
+                    Polygon triangle = new Polygon
+                    {
+                        Points = new PointCollection
+                    {
+                        new Point(Convert.ToInt32(points[0].X),Convert.ToInt32(points[0].Y)),
+                        new Point(Convert.ToInt32(points[1].X),Convert.ToInt32(points[1].Y)),
+                        new Point(Convert.ToInt32(points[2].X),Convert.ToInt32(points[2].Y)),
+                    },
+                        Stroke = Brushes.Black,
+                        StrokeThickness = 2,
+                    };
+                    points.Clear();
+                    FigureCanva.Children.Add(triangle);
+                    figures.Add(triangle);
+                }
+            }
+        }
     }
 }
