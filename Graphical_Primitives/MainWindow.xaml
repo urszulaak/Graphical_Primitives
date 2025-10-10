@@ -9,6 +9,7 @@
         Background="#FFD1DC">
     <Grid>
         <TextBlock x:Name="MousePositionText" Margin="120,0,0,0" FontWeight="Bold"/>
+        <Canvas x:Name="FigureCanva" Margin="120,20,20,20" Background="#FFFFFF" MouseMove="CanvaMouseMove" MouseDown="CanvaMouseDown" MouseUp="CanvaMouseUp"/>
         <Label FontWeight="Bold" Content="Figura" HorizontalAlignment="Left" Margin="16,20,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="Line" GroupName="Figures" Checked="Figure_Checked" Content="Linia" HorizontalAlignment="Left" Margin="20,45,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="Circle" GroupName="Figures" Checked="Figure_Checked" Content="Okrąg" HorizontalAlignment="Left" Margin="20,65,0,0" VerticalAlignment="Top"/>
@@ -52,8 +53,6 @@
             <Label FontWeight="Bold" Content="Promień R" HorizontalAlignment="Left" Margin="-6,0,0,0" VerticalAlignment="Top"/>
             <TextBox x:Name="rValue" HorizontalAlignment="Left" Margin="0,-5,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80"/>
         </StackPanel>
-        <Canvas x:Name="FigureCanva" Margin="120,20,20,20" Background="#FFFFFF" MouseMove="CanvaMouseMove" MouseDown="CanvaMouseDown">
-
-        </Canvas>
+        
     </Grid>
 </Window>

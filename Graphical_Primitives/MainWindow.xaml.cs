@@ -20,6 +20,8 @@ namespace Graphical_Primitives
         private bool firstSelection = false;
         private List<Point> points = new List<Point>();
         private List<Shape> figures = new List<Shape>();
+        private Shape? selectedShape = null;
+        private Point lastMousePosition;
         public MainWindow()
         {
             InitializeComponent();
@@ -28,6 +30,44 @@ namespace Graphical_Primitives
         {
             Point position = e.GetPosition(FigureCanva);
             MousePositionText.Text = $"X: {position.X:0}, Y: {position.Y:0}";
+
+            if (selectedShape == null || e.LeftButton != MouseButtonState.Pressed)
+                return;
+
+            Point currentPoint = e.GetPosition(FigureCanva);
+            double offsetX = currentPoint.X - lastMousePosition.X;
+            double offsetY = currentPoint.Y - lastMousePosition.Y;
+
+            if (selectedShape is Line line)
+            {
+                line.X1 += offsetX;
+                line.X2 += offsetX;
+                line.Y1 += offsetY;
+                line.Y2 += offsetY;
+            }
+            else if (selectedShape is Polygon polygon)
+            {
+                for (int i = 0; i < polygon.Points.Count; i++)
+                {
+                    polygon.Points[i] = new Point(
+                        polygon.Points[i].X + offsetX,
+                        polygon.Points[i].Y + offsetY
+                    );
+                }
+            }
+            else
+            {
+                double left = Canvas.GetLeft(selectedShape);
+                double top = Canvas.GetTop(selectedShape);
+
+                if (double.IsNaN(left)) left = 0;
+                if (double.IsNaN(top)) top = 0;
+
+                Canvas.SetLeft(selectedShape, left + offsetX);
+                Canvas.SetTop(selectedShape, top + offsetY);
+            }
+
+            lastMousePosition = currentPoint;
         }
         private void AddFigure(string type, List<Point>? points = null)
         {
@@ -55,6 +95,7 @@ namespace Graphical_Primitives
             X3Position.Visibility = Visibility.Collapsed;
             Y3Position.Visibility = Visibility.Collapsed;
             RLength.Visibility = Visibility.Collapsed;
+            CheckGenerate();
 
             if (!firstSelection)
             {
@@ -79,9 +120,9 @@ namespace Graphical_Primitives
                 RLength.Visibility = Visibility.Visible;
             }
         }
-        private void RequiredValue(object sender, TextChangedEventArgs e)
+        private bool CheckGenerate()
         {
-            bool allFilled = new[] { x1Value, y1Value }.All(tb =>
+            var allFilled = new[] { x1Value, y1Value }.All(tb =>
                 !string.IsNullOrWhiteSpace(tb.Text) &&
                 int.TryParse(tb.Text, out _)
             );
@@ -109,8 +150,11 @@ namespace Graphical_Primitives
                 int.TryParse(tb.Text, out _)
                 );
             }
-
-            Generate.IsEnabled = allFilled && allFilledAdditional;
+            return allFilled && allFilledAdditional;
+        }
+        private void RequiredValue(object sender, TextChangedEventArgs e)
+        {
+            Generate.IsEnabled = CheckGenerate();
         }
         private void Figure_Keyboard(object sender, RoutedEventArgs e)
         {
@@ -123,12 +167,55 @@ namespace Graphical_Primitives
         {
             if (firstSelection)
             {
-                points.Add(e.GetPosition(FigureCanva));
-                Generate.IsEnabled = false;
-                if (Line.IsChecked == true && points.Count == 2) { AddFigure("Line", points); points.Clear(); Generate.IsEnabled = true; }
-                else if (Square.IsChecked == true && points.Count == 2) { AddFigure("Square", points); points.Clear(); Generate.IsEnabled = true; }
-                else if (Circle.IsChecked == true && points.Count == 2) { AddFigure("Circle", points); points.Clear(); Generate.IsEnabled = true; }
-                else if (Triangle.IsChecked == true && points.Count == 3) { AddFigure("Triangle", points); points.Clear(); Generate.IsEnabled = true; }
+                Point clickPoint = e.GetPosition(FigureCanva);
+                selectedShape = FigureCanva.InputHitTest(clickPoint) as Shape;
+
+                if (selectedShape != null)
+                {
+                    selectedShape.Stroke = Brushes.Red;
+                    lastMousePosition = clickPoint;
+                    FigureCanva.CaptureMouse();
+                }
+                else
+                {
+                    points.Add(e.GetPosition(FigureCanva));
+                    Generate.IsEnabled = false;
+                    if (Line.IsChecked == true && points.Count == 2)
+                    { 
+                        AddFigure("Line", points); 
+                        points.Clear(); 
+                        Generate.IsEnabled = CheckGenerate();
+                    }
+                    else if (Square.IsChecked == true && points.Count == 2)
+                    {
+                        AddFigure("Square", points);
+                        points.Clear();
+                        Generate.IsEnabled = CheckGenerate();
+                    }
+                    else if (Circle.IsChecked == true && points.Count == 2)
+                    {
+                        AddFigure("Circle", points); 
+                        points.Clear();
+                        Generate.IsEnabled = CheckGenerate();
+                    }
+                    else if (Triangle.IsChecked == true && points.Count == 3)
+                    { 
+                        AddFigure("Triangle", points);
+                        points.Clear();
+                        Generate.IsEnabled = CheckGenerate();
+                    }
+                }
+            }
+        }
+        private void CanvaMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            {
+                if(selectedShape != null) 
+                {
+                    selectedShape.Stroke = Brushes.Black;
+                    selectedShape = null;
+                    FigureCanva.ReleaseMouseCapture();
+                }
             }
         }
     }
