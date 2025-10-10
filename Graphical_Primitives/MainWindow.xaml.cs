@@ -172,6 +172,10 @@ namespace Graphical_Primitives
 
                 if (selectedShape != null)
                 {
+                    if (Painting.IsChecked == true)
+                    {
+
+                    }
                     selectedShape.Stroke = Brushes.Red;
                     lastMousePosition = clickPoint;
                     FigureCanva.CaptureMouse();

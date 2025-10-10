@@ -15,12 +15,15 @@
         <RadioButton x:Name="Circle" GroupName="Figures" Checked="Figure_Checked" Content="Okrąg" HorizontalAlignment="Left" Margin="20,65,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="Square" GroupName="Figures" Checked="Figure_Checked" Content="Prostokąt" HorizontalAlignment="Left" Margin="20,85,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="Triangle" GroupName="Figures" Checked="Figure_Checked" Content="Trójąt" HorizontalAlignment="Left" Margin="20,105,0,0" VerticalAlignment="Top"/>
-        <Label FontWeight="Bold" Content="Kolor" HorizontalAlignment="Left" Margin="16,120,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" Margin="20,140,0,0" VerticalAlignment="Top" Width="80" Height="18">
-            <ComboBoxItem>Brak</ComboBoxItem>
-            <ComboBoxItem>Czerwony</ComboBoxItem>
-            <ComboBoxItem>Zielony</ComboBoxItem>
-            <ComboBoxItem>Niebieski</ComboBoxItem>
+        <StackPanel Orientation="Horizontal" Margin="16,120,0,0">
+            <CheckBox x:Name="Painting" Margin="3,5,0,0" IsChecked="false"/>
+            <Label FontWeight="Bold" Content="Kolor" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="-3,-1,0,0"/>
+        </StackPanel>
+        <ComboBox x:Name="colorComboBox" HorizontalAlignment="Left" Margin="20,140,0,0" VerticalAlignment="Top" Width="80" Height="18">
+            <ComboBoxItem x:Name="colorNone">Brak</ComboBoxItem>
+            <ComboBoxItem x:Name="colorRed">Czerwony</ComboBoxItem>
+            <ComboBoxItem x:Name="colorGreen">Zielony</ComboBoxItem>
+            <ComboBoxItem x:Name="colorBlue">Niebieski</ComboBoxItem>
         </ComboBox>
         <Button x:Name="Generate" Content="Generuj" Click="Figure_Keyboard" Visibility="Collapsed" HorizontalAlignment="Left" Margin="20,170,0,0" Width="80" VerticalAlignment="Top" IsEnabled="False"/>
         <StackPanel Margin="20,190,0,0" Orientation="Vertical">
