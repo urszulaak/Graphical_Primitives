@@ -16,9 +16,9 @@ namespace Graphical_Primitives.Models
         {
             double centerX, centerY, radius;
             Brush brush = Brushes.Transparent;
-            if (color != null)
+            if (color != null && color != "None")
             {
-                if (color != "None") brush = (Brush)new BrushConverter().ConvertFromString(color);
+                brush = (Brush)new BrushConverter().ConvertFromString(color);
             }
 
             if (points.Count >= 2)

@@ -14,9 +14,9 @@ namespace Graphical_Primitives.Models
         public Shape CreateShape(List<Point> points, Dictionary<string, string> inputs, string color)
         {
             Brush brush = Brushes.Black;
-            if (color != null)
+            if (color != null && color != "None")
             {
-                if (color != "None") brush = (Brush)new BrushConverter().ConvertFromString(color);
+                brush = (Brush)new BrushConverter().ConvertFromString(color);
             }
 
             if (points.Count >= 2)
