@@ -10,6 +10,6 @@ namespace Graphical_Primitives.Models
 {
     public interface IFigureCreator
     {
-        Shape CreateShape(List<Point> points, Dictionary<string, string> inputs);
+        Shape CreateShape(List<Point> points, Dictionary<string, string> inputs, string? color);
     }
 }

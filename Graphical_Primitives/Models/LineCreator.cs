@@ -11,8 +11,14 @@ namespace Graphical_Primitives.Models
 {
     public class LineCreator : IFigureCreator
     {
-        public Shape CreateShape(List<Point> points, Dictionary<string, string> inputs)
+        public Shape CreateShape(List<Point> points, Dictionary<string, string> inputs, string color)
         {
+            Brush brush = Brushes.Black;
+            if (color != null)
+            {
+                if (color != "None") brush = (Brush)new BrushConverter().ConvertFromString(color);
+            }
+
             if (points.Count >= 2)
             {
                 return new Line
@@ -21,7 +27,7 @@ namespace Graphical_Primitives.Models
                     Y1 = points[0].Y,
                     X2 = points[1].X,
                     Y2 = points[1].Y,
-                    Stroke = Brushes.Black,
+                    Stroke = brush,
                     StrokeThickness = 2
                 };
             }
@@ -32,7 +38,7 @@ namespace Graphical_Primitives.Models
                 Y1 = Convert.ToDouble(inputs["y1"]),
                 X2 = Convert.ToDouble(inputs["x2"]),
                 Y2 = Convert.ToDouble(inputs["y2"]),
-                Stroke = Brushes.Black,
+                Stroke = brush,
                 StrokeThickness = 2
             };
         }

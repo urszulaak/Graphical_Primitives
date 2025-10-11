@@ -12,9 +12,14 @@ namespace Graphical_Primitives.Models
 {
     public class CircleCreator : IFigureCreator
     {
-        public Shape CreateShape(List<Point> points, Dictionary<string, string> inputs)
+        public Shape CreateShape(List<Point> points, Dictionary<string, string> inputs, string? color)
         {
             double centerX, centerY, radius;
+            Brush brush = Brushes.Transparent;
+            if (color != null)
+            {
+                if (color != "None") brush = (Brush)new BrushConverter().ConvertFromString(color);
+            }
 
             if (points.Count >= 2)
             {
@@ -37,6 +42,7 @@ namespace Graphical_Primitives.Models
                 Width = radius * 2,
                 Height = radius * 2,
                 Stroke = Brushes.Black,
+                Fill = brush,
                 StrokeThickness = 2
             };
 

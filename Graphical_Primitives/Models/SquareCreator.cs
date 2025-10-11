@@ -12,9 +12,14 @@ namespace Graphical_Primitives.Models
 {
     public class SquareCreator : IFigureCreator
     {
-        public Shape CreateShape(List<Point> points, Dictionary<string, string> inputs)
+        public Shape CreateShape(List<Point> points, Dictionary<string, string> inputs, string color)
         {
             double x1, y1, x2, y2;
+            Brush brush = Brushes.Transparent;
+            if (color != null)
+            {
+                if (color != "None") brush = (Brush)new BrushConverter().ConvertFromString(color);
+            }
 
             if (points.Count >= 2)
             {
@@ -41,6 +46,7 @@ namespace Graphical_Primitives.Models
                 Width = width,
                 Height = height,
                 Stroke = Brushes.Black,
+                Fill = brush,
                 StrokeThickness = 2
             };
 

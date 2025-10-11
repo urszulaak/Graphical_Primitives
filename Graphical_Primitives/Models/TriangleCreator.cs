@@ -11,14 +11,21 @@ namespace Graphical_Primitives.Models
 {
     public class TriangleCreator : IFigureCreator
     {
-        public Shape CreateShape(List<Point> points, Dictionary<string, string> inputs)
+        public Shape CreateShape(List<Point> points, Dictionary<string, string> inputs, string color)
         {
+            Brush brush = Brushes.Transparent;
+            if (color != null)
+            {
+                if (color != "None") brush = (Brush)new BrushConverter().ConvertFromString(color);
+            }
+
             if (points.Count == 3)
             {
                 return new Polygon
                 {
                     Points = new PointCollection(points),
                     Stroke = Brushes.Black,
+                    Fill = Brushes.Transparent,
                     StrokeThickness = 2
                 };
             }
@@ -32,6 +39,7 @@ namespace Graphical_Primitives.Models
                     new Point(Convert.ToDouble(inputs["x3"]), Convert.ToDouble(inputs["y3"]))
                 },
                 Stroke = Brushes.Black,
+                Fill = brush,
                 StrokeThickness = 2
             };
         }

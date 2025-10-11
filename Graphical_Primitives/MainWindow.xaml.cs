@@ -69,8 +69,12 @@ namespace Graphical_Primitives
 
             lastMousePosition = currentPoint;
         }
-        private void AddFigure(string type, List<Point>? points = null)
+        private void AddFigure(string type, string? color, List<Point>? points = null)
         {
+            if (color != null)
+            {
+                color = color.Replace("color", "");
+            }
             var creator = ShapeFactory.GetCreator(type);
             var inputs = new Dictionary<string, string>
             {
@@ -83,7 +87,7 @@ namespace Graphical_Primitives
                 ["r"] = rValue?.Text ?? "0"
             };
 
-            var shape = creator.CreateShape(points ?? new List<Point>(), inputs);
+            var shape = creator.CreateShape(points ?? new List<Point>(), inputs, color);
             FigureCanva.Children.Add(shape);
             figures.Add(shape);
         }
@@ -158,10 +162,12 @@ namespace Graphical_Primitives
         }
         private void Figure_Keyboard(object sender, RoutedEventArgs e)
         {
-            if (Line.IsChecked == true ) AddFigure("Line");
-            else if (Square.IsChecked == true) AddFigure("Square");
-            else if (Triangle.IsChecked == true) AddFigure("Triangle");
-            else if (Circle.IsChecked == true) AddFigure("Circle");
+            string? colorName = null;
+            if (Painting.IsChecked == true) colorName = (colorComboBox.SelectedItem as ComboBoxItem)?.Name;
+            if (Line.IsChecked == true ) AddFigure("Line", colorName);
+            else if (Square.IsChecked == true) AddFigure("Square", colorName);
+            else if (Triangle.IsChecked == true) AddFigure("Triangle", colorName);
+            else if (Circle.IsChecked == true) AddFigure("Circle", colorName);
         }
         private void CanvaMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -169,42 +175,68 @@ namespace Graphical_Primitives
             {
                 Point clickPoint = e.GetPosition(FigureCanva);
                 selectedShape = FigureCanva.InputHitTest(clickPoint) as Shape;
+                string? colorName = null;
+                if (Painting.IsChecked == true) colorName = (colorComboBox.SelectedItem as ComboBoxItem)?.Name;
 
                 if (selectedShape != null)
                 {
                     if (Painting.IsChecked == true)
                     {
+                        if (colorName == "colorNone")
+                        {
+                            if(selectedShape is Line line)
+                            {
+                                selectedShape.Stroke = Brushes.Black;
+                            }
+                            else
+                            {
+                                selectedShape.Fill = Brushes.Transparent;
 
+                            }
+                        }
+                        else
+                        {
+                            string colorChange = colorName.Replace("color", "");
+                            Brush brush = (Brush)new BrushConverter().ConvertFromString(colorChange);
+                            if (selectedShape is Line line)
+                            {
+                                selectedShape.Stroke = brush;
+                            }
+                            else
+                            {
+                                selectedShape.Fill = brush;
+
+                            }
+                        }
                     }
-                    selectedShape.Stroke = Brushes.Red;
                     lastMousePosition = clickPoint;
                     FigureCanva.CaptureMouse();
                 }
                 else
                 {
-                    points.Add(e.GetPosition(FigureCanva));
+                    points.Add(clickPoint);
                     Generate.IsEnabled = false;
                     if (Line.IsChecked == true && points.Count == 2)
                     { 
-                        AddFigure("Line", points); 
+                        AddFigure("Line", colorName, points);
                         points.Clear(); 
                         Generate.IsEnabled = CheckGenerate();
                     }
                     else if (Square.IsChecked == true && points.Count == 2)
                     {
-                        AddFigure("Square", points);
+                        AddFigure("Square", colorName, points);
                         points.Clear();
                         Generate.IsEnabled = CheckGenerate();
                     }
                     else if (Circle.IsChecked == true && points.Count == 2)
                     {
-                        AddFigure("Circle", points); 
+                        AddFigure("Circle", colorName, points);
                         points.Clear();
                         Generate.IsEnabled = CheckGenerate();
                     }
                     else if (Triangle.IsChecked == true && points.Count == 3)
                     { 
-                        AddFigure("Triangle", points);
+                        AddFigure("Triangle", colorName, points);
                         points.Clear();
                         Generate.IsEnabled = CheckGenerate();
                     }
@@ -216,7 +248,6 @@ namespace Graphical_Primitives
             {
                 if(selectedShape != null) 
                 {
-                    selectedShape.Stroke = Brushes.Black;
                     selectedShape = null;
                     FigureCanva.ReleaseMouseCapture();
                 }
