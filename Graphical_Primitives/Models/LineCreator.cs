@@ -34,10 +34,10 @@ namespace Graphical_Primitives.Models
 
             return new Line
             {
-                X1 = Convert.ToDouble(inputs["x1"]),
-                Y1 = Convert.ToDouble(inputs["y1"]),
-                X2 = Convert.ToDouble(inputs["x2"]),
-                Y2 = Convert.ToDouble(inputs["y2"]),
+                X1 = Convert.ToInt32(inputs["x1"]),
+                Y1 = Convert.ToInt32(inputs["y1"]),
+                X2 = Convert.ToInt32(inputs["x2"]),
+                Y2 = Convert.ToInt32(inputs["y2"]),
                 Stroke = brush,
                 StrokeThickness = 2
             };

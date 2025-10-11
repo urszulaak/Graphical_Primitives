@@ -32,9 +32,9 @@ namespace Graphical_Primitives.Models
             }
             else
             {
-                centerX = Convert.ToDouble(inputs["x1"]);
-                centerY = Convert.ToDouble(inputs["y1"]);
-                radius = Convert.ToDouble(inputs["r"]);
+                centerX = Convert.ToInt32(inputs["x1"]);
+                centerY = Convert.ToInt32(inputs["y1"]);
+                radius = Convert.ToInt32(inputs["r"]);
             }
 
             var circle = new Ellipse

@@ -34,9 +34,9 @@ namespace Graphical_Primitives.Models
             {
                 Points = new PointCollection
                 {
-                    new Point(Convert.ToDouble(inputs["x1"]), Convert.ToDouble(inputs["y1"])),
-                    new Point(Convert.ToDouble(inputs["x2"]), Convert.ToDouble(inputs["y2"])),
-                    new Point(Convert.ToDouble(inputs["x3"]), Convert.ToDouble(inputs["y3"]))
+                    new Point(Convert.ToInt32(inputs["x1"]), Convert.ToInt32(inputs["y1"])),
+                    new Point(Convert.ToInt32(inputs["x2"]), Convert.ToInt32(inputs["y2"])),
+                    new Point(Convert.ToInt32(inputs["x3"]), Convert.ToInt32(inputs["y3"]))
                 },
                 Stroke = Brushes.Black,
                 Fill = brush,

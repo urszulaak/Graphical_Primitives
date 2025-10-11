@@ -82,7 +82,7 @@ namespace Graphical_Primitives
                 ["y1"] = y1Value.Text,
                 ["x2"] = x2Value.Text,
                 ["y2"] = y2Value.Text,
-                ["x3"] = y3Value?.Text ?? "0",
+                ["x3"] = x3Value?.Text ?? "0",
                 ["y3"] = y3Value?.Text ?? "0",
                 ["r"] = rValue?.Text ?? "0"
             };

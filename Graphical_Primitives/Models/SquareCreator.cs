@@ -30,10 +30,10 @@ namespace Graphical_Primitives.Models
             }
             else
             {
-                x1 = Convert.ToDouble(inputs["x1"]);
-                y1 = Convert.ToDouble(inputs["y1"]);
-                x2 = Convert.ToDouble(inputs["x2"]);
-                y2 = Convert.ToDouble(inputs["y2"]);
+                x1 = Convert.ToInt32(inputs["x1"]);
+                y1 = Convert.ToInt32(inputs["y1"]);
+                x2 = Convert.ToInt32(inputs["x2"]);
+                y2 = Convert.ToInt32(inputs["y2"]);
             }
 
             double width = Math.Abs(x2 - x1);
